@@ -55,11 +55,16 @@ body {
   padding-bottom: 140px;
 }
 
+.inner a {
+  font-family: Verdana, sans-serif;
+}
+
 .cuisine h2 {
   text-align: center;
   text-decoration-line: underline;
   text-decoration-style: double;
-  font-family: Georgia, serif;;
+  font-family: 'Comic Neue', cursive;
+  color: #7B0782;
 }
 
 .cuisine {
@@ -78,16 +83,21 @@ body {
   width: 360px;
   height: 250px;
   float: left;
+  font-family: 'Times New Roman', serif;
 }
 
 .cell h4 {
-  color: #283f9b;
+  color: #1A57AA;
   padding-top: 66px;
   margin-bottom: -16px;
 }
 
 #right {
   padding-left: 66px;
+}
+
+#left {
+  padding-right: 72px;
 }
 
 #pink {
