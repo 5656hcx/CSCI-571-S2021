@@ -4,7 +4,9 @@ h1 {
 }
 
 body {
+  margin: 0px;
   width: 854px;
+  min-width: 854px;
   overflow-x: hidden;
 }
 
@@ -23,7 +25,7 @@ body {
 
 .navbar {
   padding: 8px;
-  padding-left: 48px;
+  padding-left: 54px;
   background-color: #F7E8D2;
   margin-bottom: 36px;
 }
