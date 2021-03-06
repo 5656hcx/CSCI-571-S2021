@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>The Movie DB</title>
+	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='layout.css') }}">
+	<script type="text/javascript" src="{{ url_for('static', filename='script.js') }}" ></script>
+</head>
+<body>
+	<div class="header">
+		<h1>THE MOVIE DB</h1>
+	</div>
+	<div class="navbar">
+		<ul>
+			<li><a id="home_tab" onclick="homepage()">Home&nbsp;&emsp;&emsp;&#8594;</a></li>
+			<li><a id="search_tab" onclick="searchpage()">Search&emsp;&emsp;&#8594;</a></li>
+		</ul>
+	</div>
+
+	<div class="content">
+		<div id="home_content">
+			<div align="center">
+				<h2>Trending Movies</h2>
+				<div class="banner" style="background-image: url({{ url_for('static', filename='movie-placeholder.jpg') }})">
+					<div class="inner"><p>Unknown</p></div>
+				</div>
+			</div>
+			<div align="center">
+				<h2>TV Shows On-Air Today</h2>
+				<div class="banner" style="background-image: url({{ url_for('static', filename='movie-placeholder.jpg') }})">
+					<div class="inner"><p>Unknown</p></div>					
+				</div>
+			</div>
+		</div>
+
+
+		<div id="search_content" style="display: none;">
+			
+		</div>
+		<div class="footer">
+			Designed and developed by Akansha, Pranav & Yash<br>
+			Powered by TMDB<br>
+		</div>
+	</div>
+</body>
+</html>
