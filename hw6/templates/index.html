@@ -7,9 +7,12 @@
 	<script type="text/javascript" src="{{ url_for('static', filename='script.js') }}" ></script>
 </head>
 <body>
+	<!-- header -->
 	<div class="header">
 		<h1>THE MOVIE DB</h1>
 	</div>
+
+	<!-- navigation bar -->
 	<div class="navbar">
 		<ul>
 			<li><a id="home_tab" onclick="homepage()">Home&nbsp;&emsp;&emsp;&#8594;</a></li>
@@ -17,7 +20,10 @@
 		</ul>
 	</div>
 
+	<!-- main content -->
 	<div class="content">
+
+		<!-- home page -->
 		<div id="home_content">
 			<div align="center">
 				<h2>Trending Movies</h2>
@@ -33,10 +39,36 @@
 			</div>
 		</div>
 
-
+		<!-- search page -->
 		<div id="search_content" style="display: none;">
-			
+			<div id="search_box">
+				<h1 align="center">Search</h1>
+				<form name="searchbox" action="" method="get">
+					<div class="input_field">
+						<label class="required">Keyword</label>
+						<input style="width: 35%;" name="keyword" type="text" value=""/><br>
+					</div>
+					<div class="input_field">
+						<label class="required">Category</label>
+						<select name="category">
+							<option value=""></option>
+							<option value="movie">Movies</option>
+							<option value="tvshow">TV Shows</option>
+							<option value="all">Movies and TV Shows</option>
+						</select><br>
+					</div>
+					<div align="center">
+						<span>
+							<input class="clickable" type="button" value="Search" onclick="validateForm()">
+							<input class="clickable" type="button" value="Clear" onclick="clearForm()">
+						</span>
+					</div>
+				</form>
+			</div>
+
 		</div>
+
+		<!-- footer -->
 		<div class="footer">
 			Designed and developed by Akansha, Pranav & Yash<br>
 			Powered by TMDB<br>

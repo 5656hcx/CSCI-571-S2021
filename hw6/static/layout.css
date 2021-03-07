@@ -1,12 +1,11 @@
 body {
-	min-width: 640px;
+	min-width: 1080px;
 	background-color: black;
 	overflow-x: hidden;
 }
 
 h1 {
-	color: #990000;
-	text-align: left;
+	color: white;
 }
 
 p {
@@ -19,6 +18,11 @@ p {
 
 .header {
 	background-image: linear-gradient(to right, black, black, black, #990000);
+}
+
+.header h1 {
+	color: #990000;
+	text-align: left;
 }
 
 .footer {
@@ -83,6 +87,11 @@ p {
 	background-color: rgba(0, 0, 0,0.6);
 }
 
+label.required:after {
+	content: '* ';
+	color: red;
+}
+
 #home_tab {
 	color: #990000;
 	margin-bottom: 2px;
@@ -91,7 +100,6 @@ p {
 
 #home_content {
 	width: 780px;
-	min-height: 640px;
 	padding-left: 200px;
 }
 
@@ -100,5 +108,46 @@ p {
 }
 
 #search_content {
-	min-height: 640px;
+	margin-right: 300px;
+}
+
+#search_box {
+	background-image: linear-gradient(to bottom, #990000, #990000, black);
+	padding-bottom: 50px;
+}
+
+#search_box h1 {
+	padding-top: 30px;
+	padding-bottom: 10px;
+}
+
+label {
+	float: left;
+	width: 33%;
+	padding-right: 2%;
+	text-align: right;
+}
+
+.input_field {
+	margin-left: 10%;
+	margin-right: 10%;
+	margin-bottom: 16px;
+}
+
+.input_field select, input {
+	border: 0px;
+	border-radius: 4px;
+}
+
+.clickable {
+	margin-left: 24px;
+	margin-right: 24px;
+	width: 80px;
+	padding: 8px;
+	color: white;
+	background-color: black;
+}
+
+.clickable:hover {
+	background-color: red;
 }
