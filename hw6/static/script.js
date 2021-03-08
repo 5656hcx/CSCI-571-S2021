@@ -4,6 +4,8 @@ var elem_tvshows_img
 var elem_tvshows_text
 var elem_home_content
 var elem_search_content
+var elem_home_tab
+var elem_search_tab
 
 function fetchElements()
 {
@@ -13,6 +15,8 @@ function fetchElements()
 	elem_tvshows_text = document.getElementById("tvshows_text")
 	elem_home_content = document.getElementById("home_content")
 	elem_search_content = document.getElementById("search_content")
+	elem_home_tab = document.getElementById("home_tab")
+	elem_search_tab = document.getElementById("search_tab")
 }
 
 function fetchHomeInfo() {
@@ -43,43 +47,58 @@ function fetchHomeInfo() {
 	}, 4000);
 }
 
-function homepage() {
-	var home = document.getElementById("home_tab")
-	var search = document.getElementById("search_tab")
-	home.style.color = "#990000"
-	home.style.borderBottom = "1px solid white"
-	search.style.color = "white"
-	search.style.borderBottom = "0px"
-	elem_home_content.style.display="block"
-	elem_search_content.style.display="none"
+function switchTab(index) {
+	if (index == 0) {
+		current_tab = elem_home_tab
+		closed_tab = elem_search_tab
+		elem_home_content.style.display="block"
+		elem_search_content.style.display="none"
+	}
+	else if (index == 1) {
+		current_tab = elem_search_tab
+		closed_tab = elem_home_tab
+		elem_home_content.style.display="none"
+		elem_search_content.style.display="block"
+	}
+	current_tab.style.color = "#990000"
+	current_tab.style.borderBottom = "1px solid white"
+	closed_tab.style.color = "white"
+	closed_tab.style.borderBottom = "0px"
 }
 
-function searchpage() {
-	var home = document.getElementById("home_tab")
-	var search = document.getElementById("search_tab")
-	home.style.color = "white"
-	home.style.borderBottom = "0px"
-	search.style.color = "#990000"
-	search.style.borderBottom = "1px solid white"
-	elem_home_content.style.display="none"
-	elem_search_content.style.display="block"
-}
-
-function validateForm() {
+function search() {
+	const url = "http://127.0.0.1:5000/search";
 	var searchbox = document.forms["searchbox"]
-	if (searchbox["keyword"].value == "" || searchbox["category"].value == "") {
+	var keyword = searchbox["keyword"].value.trim()
+	var category = searchbox["category"].value.trim()
+	if (keyword == "" || category == "") {
 		alert("Please enter valid values.")
+	}
+	else {
+		var proxy = url + '?' + 'keyword=' + keyword + '&' + 'category' + '=' + category;
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				objs = JSON.parse(this.responseText);
+				if (objs.length > 0) {
+					document.getElementById("no_results").style.display="none";
+				}
+				else document.getElementById("no_results").style.display="block";
+			}
+		};
+		xhr.open("GET", proxy, true);
+		xhr.send();
 	}
 }
 
-function clearForm() {
+function clear() {
 	var searchbox = document.forms["searchbox"]
 	searchbox["keyword"].value = ""
 	searchbox["category"].value = ""
 }
 
 function resizeFooter() {
-	var h = (window.innerHeight - 140) + 'px'
+	var h = (window.innerHeight - 155) + 'px'
 	elem_home_content.style.minHeight = h
 	elem_search_content.style.minHeight = h
 }

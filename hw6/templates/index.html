@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<!DOCTYPE html>
 <html>
 <head>
 	<title>The Movie DB</title>
+	<link rel="preconnect" href="https://fonts.gstatic.com"> 
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,400;0,700;1,400&display=swap">
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='layout.css') }}">
 	<script type="text/javascript" src="{{ url_for('static', filename='script.js') }}" ></script>
 </head>
@@ -11,70 +12,84 @@
 	<div class="header">
 		<h1>THE MOVIE DB</h1>
 	</div>
+	
+	<!-- content wrapper -->
+	<div style="padding-left: 320px;">
 
-	<!-- navigation bar -->
-	<div style="padding-left: 20%">
-	<div class="navbar">
-		<ul>
-			<li><a id="home_tab" onclick="homepage()">Home&nbsp;&emsp;&emsp;&emsp;&#8594;</a></li>
-			<li><a id="search_tab" onclick="searchpage()">Search&emsp;&emsp;&emsp;&#8594;</a></li>
-		</ul>
-	</div>
+		<!-- navigation bar -->
+		<div class="navbar">
+			<ul>
+				<li><a id="home_tab" onclick="switchTab(0)">Home&nbsp;&emsp;&emsp;&emsp;&#10230;</a></li>
+				<li><a id="search_tab" onclick="switchTab(1)">Search&emsp;&emsp;&emsp;&#10230;</a></li>
+			</ul>
+		</div>
 
-	<!-- main content -->
-	<div class="content">
+		<!-- main content -->
+		<div class="content">
 
-		<!-- home page -->
-		<div id="home_content">
-			<div align="center">
-				<h2>Trending Movies</h2>
-				<div class="banner" id="trending_img" style="background-image: url({{ url_for('static', filename='movie-placeholder.jpg') }})">
-					<div class="inner"><p id="trending_text"></p></div>
+			<!-- home page -->
+			<div id="home_content">
+				<div align="center">
+					<h2 class="sub_title">Trending Movies</h2>
+					<div class="banner" id="trending_img" style="background-image: url({{ url_for('static', filename='movie-placeholder.jpg') }})">
+						<div class="inner"><p id="trending_text"></p></div>
+					</div>
+				</div>
+				<div align="center">
+					<h2 class="sub_title">TV Shows On-Air Today</h2>
+					<div class="banner" id="tvshows_img" style="background-image: url({{ url_for('static', filename='movie-placeholder.jpg') }})">
+						<div class="inner"><p id="tvshows_text"></p></div>					
+					</div>
 				</div>
 			</div>
-			<div align="center">
-				<h2>TV Shows On-Air Today</h2>
-				<div class="banner" id="tvshows_img" style="background-image: url({{ url_for('static', filename='movie-placeholder.jpg') }})">
-					<div class="inner"><p id="tvshows_text"></p></div>					
+
+			<!-- search page -->
+			<div id="search_content" style="display: none;">
+				<div id="search_box">
+					<h1 align="center">Search</h1>
+					<form name="searchbox">
+						<div class="input_field">
+							<label class="required">Keyword</label>
+							<input style="width: 40%;" name="keyword" type="text" value=""/><br>
+						</div>
+						<div class="input_field">
+							<label class="required">Category</label>
+							<select name="category">
+								<option value=""></option>
+								<option value="movie">Movies</option>
+								<option value="tv">TV Shows</option>
+								<option value="multi">Movies and TV Shows</option>
+							</select><br>
+						</div>
+						<div align="center">
+							<span>
+								<input class="clickable" type="button" value="Search" onclick="search()">
+								<input class="clickable" type="button" value="Clear" onclick="clear()">
+							</span>
+						</div>
+					</form>
+				</div>
+				<div id='no_results' align="center" style="display: none;">
+					<p>No results found.</p>
+				</div>
+				<p>Showing results...</p>
+				<div style="width: 100%;">
+					<img src="{{ url_for('static', filename='poster_placeholder.png') }}" style="float: left;">
+					<div style="float: left;">
+					<h2 style="width: 100%">Avengers: Endgame</h2>
+					<p style="width: 100%">2019 | Adventure, Science, Fiction, Action</p>
+					<p style="width: 100%">&#9733;&nbsp;4.15/5 16922 votes</p>
+					<p style="width: 100%">ldsagfklgjasd;gjafjghafkl;jgkdsajfkas;hgakhgj;kldfhakfghaejlghasjdghdlsjafhsadlfhsadfha;sd</p>
+					<button>Show more</button>
+					</div>
 				</div>
 			</div>
-		</div>
 
-		<!-- search page -->
-		<div id="search_content" style="display: none;">
-			<div id="search_box">
-				<h1 align="center">Search</h1>
-				<form name="searchbox" action="" method="get">
-					<div class="input_field">
-						<label class="required">Keyword</label>
-						<input style="width: 35%;" name="keyword" type="text" value=""/><br>
-					</div>
-					<div class="input_field">
-						<label class="required">Category</label>
-						<select name="category">
-							<option value=""></option>
-							<option value="movie">Movies</option>
-							<option value="tvshow">TV Shows</option>
-							<option value="all">Movies and TV Shows</option>
-						</select><br>
-					</div>
-					<div align="center">
-						<span>
-							<input class="clickable" type="button" value="Search" onclick="validateForm()">
-							<input class="clickable" type="button" value="Clear" onclick="clearForm()">
-						</span>
-					</div>
-				</form>
+			<!-- footer -->
+			<div class="footer">
+				<p>Designed and developed by Akansha, Pranav & Yash<br>Powered by TMDB<p>
 			</div>
-
 		</div>
-
-		<!-- footer -->
-		<div class="footer">
-			Designed and developed by Akansha, Pranav & Yash<br>
-			Powered by TMDB<br>
-		</div>
-	</div>
 	</div>
 </body>
 </html>

@@ -1,74 +1,64 @@
 body {
 	min-width: 1280px;
-	background-color: black;
 	overflow-x: hidden;
+	background-color: black;
 }
 
-h1 {
+h1, h2, p, a, label {
 	color: white;
+	font-family: 'Raleway', sans-serif;
 }
 
-p {
-	color: white;
-}
-
-.footer p {
-	text-align: right;
+.sub_title {
+	font-weight: normal;
 }
 
 .header {
 	background-image: linear-gradient(to right, black, black, black, #990000);
+	text-align: left;
 }
 
 .header h1 {
 	color: #990000;
-	text-align: left;
+	font-family: 'Raleway', sans-serif;
 }
 
 .footer {
+	color: #ffcccc;
+	font-size: 12px;
+	font-style: italic;
+	text-align: right;
 	background-color: #990000;
-}
-
-.navbar ul {
-	list-style-type: none;
-	margin: 0;
-	padding: 0;
+	margin-left: 8px;
+	padding-top: 4px;
+	padding-bottom: 4px;
+	padding-right: 16px;
 }
 
 .navbar {
-	float: left;
-	width: 150px;
-	margin-left: -150px;
 	text-align: right;
+	float: left;
+	width: 200px;
+	margin-left: -200px;
+	list-style-type: none;
 }
 
 .navbar a {
-	color: white;
-	display: block;
 	cursor: pointer;
-	padding-top: 24px;
-	padding-right: 24px;
-	padding-bottom: 24px;
+	display: block;
+	padding: 24px;
+	padding-left: 0px;
 }
 
 .navbar a:hover {
-	color: #990000;
+	color: #990000!important;
 }
 
 .content {
-	color: white;
 	float: right;
 	width: 100%;
+	margin-bottom: 8px;
 	border-left: 1px solid white;
-}
-
-.footer {
-	margin-left: 8px;
-	padding: 8px;
-	font-size: 12px;
-	font-style: italic;
-	color: #ffcccc;
-	text-align: right;
 }
 
 .banner {
@@ -77,12 +67,12 @@ p {
 }
 
 .inner {
-	padding-top: 338px;
+	padding-top: 339px;
 }
 
 .inner p {
 	margin: 0px;
-	padding: 41px;
+	padding: 40px;
 	background-color: rgba(0, 0, 0,0.6);
 }
 
@@ -93,27 +83,23 @@ label.required:after {
 
 #home_tab {
 	color: #990000;
-	margin-bottom: 2px;
+	margin-bottom: 4px;
 	border-bottom: 1px solid white;
 }
 
 #home_content {
 	width: 780px;
-	padding-left: 200px;
-}
-
-#search_tab {
-	margin-top: 2px;
+	padding-left: 15%;
 }
 
 #search_content {
 	margin-left: 8px;
-	margin-right: 30%;
+	margin-right: 20%;
 }
 
 #search_box {
 	background-image: linear-gradient(to bottom, #990000, #990000, black);
-	padding-bottom: 50px;
+	padding-bottom: 80px;
 }
 
 #search_box h1 {
@@ -129,8 +115,7 @@ label {
 }
 
 .input_field {
-	margin-left: 10%;
-	margin-right: 10%;
+	margin-right: 2%;
 	margin-bottom: 16px;
 }
 
