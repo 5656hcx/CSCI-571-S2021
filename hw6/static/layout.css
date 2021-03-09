@@ -2,15 +2,27 @@ body {
 	min-width: 1280px;
 	overflow-x: hidden;
 	background-color: black;
+	margin-left: 12px;
+	margin-right: 12px;
 }
 
-h1, h2, p, a, label {
+h1, h2, p, a, label, input, select, button {
 	color: white;
 	font-family: 'Raleway', sans-serif;
 }
 
-.sub_title {
+h2 {
 	font-weight: normal;
+}
+
+input, select {
+	padding: 4px;
+	color: black;
+}
+
+input {
+	padding-left: 8px;
+	padding-right: 8px;
 }
 
 .header {
@@ -29,7 +41,7 @@ h1, h2, p, a, label {
 	font-style: italic;
 	text-align: right;
 	background-color: #990000;
-	margin-left: 8px;
+	margin-left: 12px;
 	padding-top: 4px;
 	padding-bottom: 4px;
 	padding-right: 16px;
@@ -76,9 +88,46 @@ h1, h2, p, a, label {
 	background-color: rgba(0, 0, 0,0.6);
 }
 
-label.required:after {
-	content: '* ';
+label {
+	font-weight: 500;
+	float: left;
+	width: 33%;
+	padding-right: 2%;
+	margin-left: -35%;
+	text-align: right;
+}
+
+label:after {
+	content: ' * ';
 	color: red;
+}
+
+.input_field {
+	padding-left: 35%;
+	padding-right: 30%;
+	margin-bottom: 24px;
+}
+
+.input_field select, input {
+	border: 0px;
+	border-radius: 4px;
+}
+
+.input_field input {
+	width: 100%;
+}
+
+.clickable {
+	margin-left: 24px;
+	margin-right: 24px;
+	width: 80px;
+	padding: 8px;
+	color: white;
+	background-color: black;
+}
+
+.clickable:hover {
+	background-color: red;
 }
 
 #home_tab {
@@ -93,7 +142,7 @@ label.required:after {
 }
 
 #search_content {
-	margin-left: 8px;
+	margin-left: 12px;
 	margin-right: 20%;
 }
 
@@ -103,36 +152,7 @@ label.required:after {
 }
 
 #search_box h1 {
+	font-size: 1.5em;
 	padding-top: 30px;
 	padding-bottom: 10px;
-}
-
-label {
-	float: left;
-	width: 33%;
-	padding-right: 2%;
-	text-align: right;
-}
-
-.input_field {
-	margin-right: 2%;
-	margin-bottom: 16px;
-}
-
-.input_field select, input {
-	border: 0px;
-	border-radius: 4px;
-}
-
-.clickable {
-	margin-left: 24px;
-	margin-right: 24px;
-	width: 80px;
-	padding: 8px;
-	color: white;
-	background-color: black;
-}
-
-.clickable:hover {
-	background-color: red;
 }
