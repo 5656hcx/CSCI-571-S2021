@@ -1,6 +1,6 @@
 import json
 from urllib import request
-from flask import Flask, render_template
+from flask import Flask, render_template, abort
 from flask import request as flask_request
 
 api_key = '67124d57621f4b2c70bb13cb9b38bacd'
@@ -9,6 +9,9 @@ trending_endpoint = 'https://api.themoviedb.org/3/trending/movie/week?api_key=<<
 tv_airing_today_endpoint = 'https://api.themoviedb.org/3/tv/airing_today?api_key=<<api_key>>'
 search_endpoint = 'https://api.themoviedb.org/3/search/<<category>>?api_key=<<api_key>>&language=en-US&query=<<search_query>>&page=1&include_adult=false';
 genre_endpoint = 'https://api.themoviedb.org/3/genre/<<category>>/list?api_key=<<api_key>>&language=en-US'
+detail_endpoint = 'https://api.themoviedb.org/3/<<category>>/<<id>>?api_key=<<api_key>>&language=en-US'
+credit_endpoint = 'https://api.themoviedb.org/3/<<category>>/<<id>>/credits?api_key=<<api_key>>&language=en-US'
+review_endpoint = 'https://api.themoviedb.org/3/<<category>>/<<id>>/reviews?api_key=<<api_key>>&language=en-US&page=1'
 
 genre_dict = {}
 app = Flask(__name__)
@@ -19,10 +22,10 @@ def index():
 
 @app.route("/trending-and-airing/")
 def fetch_trending_and_airing():
-	results = {}
-	results['trending'] = json.loads(fetch_trending_movies())
-	results['airing'] = json.loads(fetch_airing_today())
-	return json.dumps(results)
+	result = {}
+	result['trending'] = json.loads(fetch_trending_movies())
+	result['airing'] = json.loads(fetch_airing_today())
+	return json.dumps(result)
 
 @app.route("/trending/")
 def fetch_trending_movies():
@@ -68,6 +71,8 @@ def search_tmdb():
 		return search_tv(url)
 	elif category == 'multi':
 		return search_multi(url)
+	else:
+		abort(404)
 	return json.dumps([])
 
 
@@ -163,6 +168,85 @@ def convert_genre(category, ids):
 	for i in range(0, len(ids)):
 		results.append(genre_dict[category][ids[i]])
 	return results
+
+
+@app.route("/detail/<category>/<id>")
+def fetch_media_detail(category, id):
+	if category != 'movie' and category != 'tv':
+		abort(404)
+	else:
+		url = detail_endpoint.replace('<<category>>', category).replace('<<id>>', id).replace('<<api_key>>', api_key)
+		response = request.urlopen(url)
+		text = json.loads(response.read())
+		result = {}
+		genres = []
+		spoken_languages = []
+		for i in range(0, len(text['genres'])):
+			genres.append(text['genres'][i]['name'])
+		for i in range(0, len(text['spoken_languages'])):
+			spoken_languages.append(text['spoken_languages'][i]['english_name'])
+		if category == 'movie':
+			result['id'] = text['id']
+			result['title'] = text['title']
+			result['runtime'] = text['runtime']
+			result['release_date'] = text['release_date']
+			result['spoken_languages'] = spoken_languages
+			result['vote_average'] = text['vote_average']
+			result['vote_count'] = text['vote_count']
+			result['poster_path'] = text['poster_path']
+			result['backdrop_path'] = text['backdrop_path']
+			result['genres'] = genres
+		else:
+			result['backdrop_path'] = text['backdrop_path']
+			result['episode_run_time'] = text['episode_run_time']
+			result['first_air_date'] = text['first_air_date']
+			result['genres'] = genres
+			result['id'] = text['id']
+			result['name'] = text['name']
+			result['number_of_seasons'] = text['number_of_seasons']
+			result['overview'] = text['overview']
+			result['poster_path'] = text['poster_path']
+			result['spoken languages'] = spoken_languages
+			result['vote_average'] = text['vote_average']
+			result['vote_count'] = text['vote_count']
+		return json.dumps(result)
+
+
+@app.route("/credit/<category>/<id>")
+def fetch_credits(category, id):
+	if category != 'movie' and category != 'tv':
+		abort(404)
+	else:
+		url = credit_endpoint.replace('<<category>>', category).replace('<<id>>', id).replace('<<api_key>>', api_key)
+		response = request.urlopen(url)
+		casts = json.loads(response.read())['cast']
+		results = []
+		for i in range(0, min(8, len(casts))):
+			result.append({
+				'name': casts[i]['name'],
+				'profile_path': casts[i]['profile_path'],
+				'character': casts[i]['character']
+			})
+		return json.dumps(results)
+
+
+@app.route("/review/<category>/<id>")
+def fetch_reviews(category, id):
+	if category != 'movie' and category != 'tv':
+		abort(404)
+	else:
+		url = review_endpoint.replace('<<category>>', category).replace('<<id>>', id).replace('<<api_key>>', api_key)
+		response = request.urlopen(url)
+		reviews = json.loads(response.read())['results']
+		results = []
+		for i in range(0, min(5, len(reviews))):
+			results.append({
+				'username': reviews[i]['author_details']['username'],
+				'content': reviews[i]['content'],
+				'rating': reviews[i]['author_details']['rating'],
+				'created_at': reviews[i]['created_at']
+			})
+		return json.dumps(results)
 
 
 if __name__ == '__main__':

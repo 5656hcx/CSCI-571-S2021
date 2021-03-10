@@ -1,0 +1,125 @@
+#popups {
+	z-index: 1;
+	position: absolute;
+	margin: 0 0 0 -450px;
+	width: 900px;
+	left: 50%;
+	top: 40px;
+	padding-top: 32px;
+
+	background-color: #cacaca;
+}
+
+#popups_poster {
+	width: 780px;
+	height: 439px;
+}
+
+#popups_title {
+	color: black;
+	float: left;
+	max-width: 90%;
+	word-wrap:break-word;
+	word-break:break-all;
+}
+
+#popups_link {
+	float: left;
+	margin-left: 12px;
+	margin-top: 24px;
+	color: #cc0000;
+	text-decoration: none;
+}
+
+#popups_rank {
+	position: relative;
+	top: 2px;
+	color: #cc0000;
+	margin-right: 8px;
+	font-size: 0.9em;
+}
+
+#popups_vote {
+	position: relative;
+	top: -2px;
+	font-size: 0.9em;
+}
+
+#popups_overview {
+	padding-top: 16px;
+}
+
+#popups_user {
+	font-weight: 700;
+}
+
+#popups_no_cast {
+	display: none;
+	color: black;
+}
+
+#popups_review {
+	margin-top: 0px;
+	color: black;
+	display: -webkit-box;
+	-webkit-line-clamp: 3;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#popups_time {
+	font-size: 0.9em;
+}
+
+#popups_rank {
+	margin: 0px;
+}
+
+#card_h2 {
+	font-size: 1.4em; font-weight: 600; margin-top: 30px;
+}
+
+.popups_text {
+	float: left;
+	width: 780px;
+	padding-left: 60px;
+	text-align: left;
+	color: black;
+	font-family: 'Raleway', sans-serif;
+}
+
+.popups_cast {
+	text-align: center;
+	float: left;
+	width: 185px;
+	padding-right: 10px;
+	margin-bottom: 20px;
+	font-size: 0.9em;
+}
+
+.popups_cast_name {
+	margin: 0px;
+	margin-top: 8px;
+	margin-bottom: 2px;
+	color: black;
+	font-weight: 700;
+	white-space:nowrap; 
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.popups_cast_role {
+	margin: 0px;
+	color: black;
+	white-space:nowrap; 
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#review_boundary {
+	width: 80%;
+	margin-left: 10%;
+	height: 24px;
+	border-top: thin solid grey;
+}

@@ -174,3 +174,7 @@ function resizeFooter() {
 	elem_home_content.style.minHeight = h
 	elem_search_content.style.minHeight = h
 }
+
+function popup() {
+	document.getElementById("popups").style.display = "block";
+}
