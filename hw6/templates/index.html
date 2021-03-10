@@ -9,10 +9,10 @@
 	<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='card.css') }}">
 	<script type="text/javascript" src="{{ url_for('static', filename='script.js') }}" ></script>
 </head>
-<body onload="__init_site__()" onresize="resizeFooter()">
+<body id='test' onload="__init_site__()" onresize="resizeFooter()">
 
 	<!-- popup window -->
-	<div id="popups" align="center" style="display: none;">
+	<div id="popups" align="center">
 		<img id="popups_poster" src="{{ url_for('static', filename='movie-placeholder.jpg') }}">
 		<div class="popups_text">
 			<h2 id="popups_title">Unknown</h2>
@@ -29,23 +29,26 @@
 
 		<!-- cast info -->
 		<h2 id="card_h2" class="popups_text">Cast</h2>
-		<div id="cast_info" class="popups_text">
-			<p id="popups_no_cast">No cast info.</p>
-			<div class="popups_cast">
-				<img src="{{ url_for('static', filename='person-placeholder.png') }}">
-				<p class="popups_cast_name">Unknown</p>
+		<p id="no_casts" class="popups_text">No cast info.</p>
+		<div id="show_casts" class="popups_text" >
+			<div id='template_cast_item' class="popups_cast" style="display: none;">
+				<img class="cast_image" src="{{ url_for('static', filename='person-placeholder.png') }}">
+				<p class="cast_name">Unknown</p>
 				<span>AS</span><br>
-				<p class="popups_cast_role">Unknown</p>
+				<p class="cast_role">Unknown</p>
 			</div>
 		</div>
 
 		<!-- review info -->
 		<h2 id="card_h2" class="popups_text">Reviews</h2>
-		<div id="review_info" class="popups_text">
-			<div class="popups_review">
-				<div style="margin-bottom: 12px;"><span id="popups_user">Unkonwn user</span> on <span id="popups_time">??/??/????</span><br></div>
-				<p id="popups_rank">&#9733;&nbsp;0/5</p>
-				<p id="popups_review">This is a sample review!</p>
+		<p id="no_reviews" class="popups_text">No review found.</p>
+		<div id="show_reviews" class="popups_text">
+			<div id='template_review_item' class="popups_review" style="display: none;">
+				<div style="margin-bottom: 12px;">
+					<span id="popups_user" class="review_user">Anonymous</span> on <span id="popups_time" class="review_date">??/??/????</span><br>
+				</div>
+				<p id="popups_rank" class="review_rank">&#9733;&nbsp;0/5</p>
+				<p id="popups_review" class="review_content">No review content.</p>
 				<div id="review_boundary"></div>
 			</div>
 		</div>
@@ -132,7 +135,7 @@
 							<span class='list_year'>Unknown</span> | <span class='list_genre'>Unknown</span><br> 
 							<span class='list_rank'>&#9733;&nbsp;0/5</span><span class='list_vote'>0 vote</span>
 							<p class='list_overview'>No overview.<p>
-							<button class='list_showmore' onclick="popup()">Show more</button>
+							<button class='list_showmore'>Show more</button>
 						</div>
 					</div>
 				</div>

@@ -1,3 +1,7 @@
+#show_casts, #show_reviews {
+	display: none;
+}
+
 #popups {
 	z-index: 1;
 	position: absolute;
@@ -6,7 +10,7 @@
 	left: 50%;
 	top: 40px;
 	padding-top: 32px;
-
+	display: none;
 	background-color: #cacaca;
 }
 
@@ -98,7 +102,7 @@
 	font-size: 0.9em;
 }
 
-.popups_cast_name {
+.cast_name {
 	margin: 0px;
 	margin-top: 8px;
 	margin-bottom: 2px;
@@ -109,7 +113,12 @@
 	text-overflow: ellipsis;
 }
 
-.popups_cast_role {
+.cast_image {
+	width: 185px;
+	height: 277px;
+}
+
+.cast_role {
 	margin: 0px;
 	color: black;
 	white-space:nowrap; 

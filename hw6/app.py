@@ -5,8 +5,8 @@ from flask import request as flask_request
 
 api_key = '67124d57621f4b2c70bb13cb9b38bacd'
 
+airing_endpoint = 'https://api.themoviedb.org/3/tv/airing_today?api_key=<<api_key>>'
 trending_endpoint = 'https://api.themoviedb.org/3/trending/movie/week?api_key=<<api_key>>'
-tv_airing_today_endpoint = 'https://api.themoviedb.org/3/tv/airing_today?api_key=<<api_key>>'
 search_endpoint = 'https://api.themoviedb.org/3/search/<<category>>?api_key=<<api_key>>&language=en-US&query=<<search_query>>&page=1&include_adult=false';
 genre_endpoint = 'https://api.themoviedb.org/3/genre/<<category>>/list?api_key=<<api_key>>&language=en-US'
 detail_endpoint = 'https://api.themoviedb.org/3/<<category>>/<<id>>?api_key=<<api_key>>&language=en-US'
@@ -27,6 +27,7 @@ def fetch_trending_and_airing():
 	result['airing'] = json.loads(fetch_airing_today())
 	return json.dumps(result)
 
+
 @app.route("/trending/")
 def fetch_trending_movies():
 	response = request.urlopen(trending_endpoint.replace('<<api_key>>', api_key))
@@ -41,9 +42,10 @@ def fetch_trending_movies():
 		results.append(obj)
 	return json.dumps(results)
 
+
 @app.route("/airing/")
 def fetch_airing_today():
-	response = request.urlopen(tv_airing_today_endpoint.replace('<<api_key>>', api_key))
+	response = request.urlopen(airing_endpoint.replace('<<api_key>>', api_key))
 	text = json.loads(response.read())
 	results = []
 	for i in range(0, 5):
@@ -54,6 +56,7 @@ def fetch_airing_today():
 		}
 		results.append(obj)
 	return json.dumps(results)
+
 
 @app.route("/search/", methods = ['GET'])
 def search_tmdb():
@@ -82,16 +85,16 @@ def search_movie(url):
 	results = []
 	for i in range(0, len(text['results'])):
 		obj = text['results'][i]
-		results.append({
-			'id': obj['id'],
-			'title': obj['title'],
-			'overview': obj['overview'],
-			'poster_path': obj['poster_path'],
-			'release_date': obj['release_date'],
-			'vote_average': obj['vote_average'],
-			'vote_count': obj['vote_count'],
-			'genre_strs': convert_genre('movie', obj['genre_ids'])}
-		)
+		candidate = {}
+		if 'id' in obj: candidate['id'] = obj['id']
+		if 'title' in obj: candidate['title'] = obj['title']
+		if 'overview' in obj: candidate['overview'] = obj['overview']
+		if 'poster_path' in obj: candidate['poster_path'] = obj['poster_path']
+		if 'release_date' in obj: candidate['release_date'] = obj['release_date']
+		if 'vote_average' in obj: candidate['vote_average'] = obj['vote_average']
+		if 'vote_count' in obj: candidate['vote_count'] = obj['vote_count']
+		if 'genre_ids' in obj: candidate['genre_strs'] = convert_genre('movie', obj['genre_ids'])
+		results.append(candidate)
 	return json.dumps(results)
 
 
@@ -101,16 +104,16 @@ def search_tv(url):
 	results = []
 	for i in range(0, len(text['results'])):
 		obj = text['results'][i]
-		results.append({
-			'id': obj['id'],
-			'title': obj['name'],
-			'overview': obj['overview'],
-			'poster_path': obj['poster_path'],
-			'release_date': obj['first_air_date'],
-			'vote_average': obj['vote_average'],
-			'vote_count': obj['vote_count'],
-			'genre_strs': convert_genre('tv', obj['genre_ids'])}
-		)
+		candidate = {}
+		if 'id' in obj: candidate['id'] = obj['id']
+		if 'name' in obj: candidate['name'] = obj['name']
+		if 'overview' in obj: candidate['overview'] = obj['overview']
+		if 'poster_path' in obj: candidate['poster_path'] = obj['poster_path']
+		if 'first_air_date' in obj: candidate['first_air_date'] = obj['first_air_date']
+		if 'vote_average' in obj: candidate['vote_average'] = obj['vote_average']
+		if 'vote_count' in obj: candidate['vote_count'] = obj['vote_count']
+		if 'genre_ids' in obj: candidate['genre_strs'] = convert_genre('tv', obj['genre_ids'])
+		results.append(candidate)
 	return json.dumps(results)
 
 
@@ -120,28 +123,27 @@ def search_multi(url):
 	results = []
 	for i in range(0, len(text['results'])):
 		obj = text['results'][i]
+		candidate = {}
 		if obj['media_type'] == 'movie':
-			results.append({
-				'id': obj['id'],
-				'title': obj['title'],
-				'overview': obj['overview'],
-				'poster_path': obj['poster_path'],
-				'release_date': obj['release_date'],
-				'vote_average': obj['vote_average'],
-				'vote_count': obj['vote_count'],
-				'genre_strs': convert_genre('movie', obj['genre_ids'])}
-			)
+			if 'id' in obj: candidate['id'] = obj['id']
+			if 'title' in obj: candidate['title'] = obj['title']
+			if 'overview' in obj: candidate['overview'] = obj['overview']
+			if 'poster_path' in obj: candidate['poster_path'] = obj['poster_path']
+			if 'release_date' in obj: candidate['release_date'] = obj['release_date']
+			if 'vote_average' in obj: candidate['vote_average'] = obj['vote_average']
+			if 'vote_count' in obj: candidate['vote_count'] = obj['vote_count']
+			if 'genre_ids' in obj: candidate['genre_strs'] = convert_genre('movie', obj['genre_ids'])
 		elif obj['media_type'] == 'tv':
-			results.append({
-				'id': obj['id'],
-				'title': obj['name'],
-				'overview': obj['overview'],
-				'poster_path': obj['poster_path'],
-				'release_date': obj['first_air_date'],
-				'vote_average': obj['vote_average'],
-				'vote_count': obj['vote_count'],
-				'genre_strs': convert_genre('tv', obj['genre_ids'])}
-			)
+			if 'id' in obj: candidate['id'] = obj['id']
+			if 'name' in obj: candidate['name'] = obj['name']
+			if 'overview' in obj: candidate['overview'] = obj['overview']
+			if 'poster_path' in obj: candidate['poster_path'] = obj['poster_path']
+			if 'first_air_date' in obj: candidate['first_air_date'] = obj['first_air_date']
+			if 'vote_average' in obj: candidate['vote_average'] = obj['vote_average']
+			if 'vote_count' in obj: candidate['vote_count'] = obj['vote_count']
+			if 'genre_ids' in obj: candidate['genre_strs'] = convert_genre('tv', obj['genre_ids'])
+		else: continue
+		results.append(candidate)
 	return json.dumps(results)
 
 
@@ -171,7 +173,7 @@ def convert_genre(category, ids):
 
 
 @app.route("/detail/<category>/<id>")
-def fetch_media_detail(category, id):
+def fetch_details(category, id):
 	if category != 'movie' and category != 'tv':
 		abort(404)
 	else:
@@ -185,30 +187,28 @@ def fetch_media_detail(category, id):
 			genres.append(text['genres'][i]['name'])
 		for i in range(0, len(text['spoken_languages'])):
 			spoken_languages.append(text['spoken_languages'][i]['english_name'])
+		result['genres'] = genres
+		result['spoken_languages'] = spoken_languages
 		if category == 'movie':
-			result['id'] = text['id']
-			result['title'] = text['title']
-			result['runtime'] = text['runtime']
-			result['release_date'] = text['release_date']
-			result['spoken_languages'] = spoken_languages
-			result['vote_average'] = text['vote_average']
-			result['vote_count'] = text['vote_count']
-			result['poster_path'] = text['poster_path']
-			result['backdrop_path'] = text['backdrop_path']
-			result['genres'] = genres
+			if 'id' in text: result['id'] = text['id']
+			if 'title' in text: result['title'] = text['title']
+			if 'runtime' in text: result['runtime'] = text['runtime']
+			if 'release_date' in text: result['release_date'] = text['release_date']
+			if 'vote_average' in text: result['vote_average'] = text['vote_average']
+			if 'vote_count' in text: result['vote_count'] = text['vote_count']
+			if 'poster_path' in text: result['poster_path'] = text['poster_path']
+			if 'backdrop_path' in text: result['backdrop_path'] = text['backdrop_path']
 		else:
-			result['backdrop_path'] = text['backdrop_path']
-			result['episode_run_time'] = text['episode_run_time']
-			result['first_air_date'] = text['first_air_date']
-			result['genres'] = genres
-			result['id'] = text['id']
-			result['name'] = text['name']
-			result['number_of_seasons'] = text['number_of_seasons']
-			result['overview'] = text['overview']
-			result['poster_path'] = text['poster_path']
-			result['spoken languages'] = spoken_languages
-			result['vote_average'] = text['vote_average']
-			result['vote_count'] = text['vote_count']
+			if 'backdrop_path' in text: result['backdrop_path'] = text['backdrop_path']
+			if 'episode_run_time' in text: result['episode_run_time'] = text['episode_run_time']
+			if 'first_air_date' in text: result['first_air_date'] = text['first_air_date']
+			if 'id' in text: result['id'] = text['id']
+			if 'name' in text: result['name'] = text['name']
+			if 'number_of_seasons' in text: result['number_of_seasons'] = text['number_of_seasons']
+			if 'overview' in text: result['overview'] = text['overview']
+			if 'poster_path' in text: result['poster_path'] = text['poster_path']
+			if 'vote_average' in text: result['vote_average'] = text['vote_average']
+			if 'vote_count' in text: result['vote_count'] = text['vote_count']
 		return json.dumps(result)
 
 
@@ -222,7 +222,7 @@ def fetch_credits(category, id):
 		casts = json.loads(response.read())['cast']
 		results = []
 		for i in range(0, min(8, len(casts))):
-			result.append({
+			results.append({
 				'name': casts[i]['name'],
 				'profile_path': casts[i]['profile_path'],
 				'character': casts[i]['character']
@@ -248,6 +248,14 @@ def fetch_reviews(category, id):
 			})
 		return json.dumps(results)
 
+
+@app.route("/fetch-all/<category>/<id>")
+def fetch_all(category, id):
+	result = {}
+	result['details'] = json.loads(fetch_details(category, id))
+	result['credits'] = json.loads(fetch_credits(category, id))
+	result['reviews'] = json.loads(fetch_reviews(category, id))
+	return json.dumps(result)
 
 if __name__ == '__main__':
 	app.run(debug = True)
