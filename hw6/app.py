@@ -20,7 +20,7 @@ app = Flask(__name__)
 def index():
 	return render_template("index.html")
 
-@app.route("/trending-and-airing/")
+@app.route("/trending-and-airing")
 def fetch_trending_and_airing():
 	result = {}
 	result['trending'] = json.loads(fetch_trending_movies())
@@ -28,7 +28,7 @@ def fetch_trending_and_airing():
 	return json.dumps(result)
 
 
-@app.route("/trending/")
+@app.route("/trending")
 def fetch_trending_movies():
 	response = request.urlopen(trending_endpoint.replace('<<api_key>>', api_key))
 	text = json.loads(response.read())
@@ -58,7 +58,7 @@ def fetch_airing_today():
 	return json.dumps(results)
 
 
-@app.route("/search/", methods = ['GET'])
+@app.route("/search", methods = ['GET'])
 def search_tmdb():
 	keyword = flask_request.args.get('keyword')
 	category = flask_request.args.get('category')

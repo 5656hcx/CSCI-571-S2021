@@ -21,8 +21,6 @@ var template_review_item
 var main_page_objs
 var main_page_index
 
-const proxy_url = 'http://127.0.0.1:5000/'
-
 function __init_site__()
 {
 	main_page_index = 0
@@ -70,7 +68,6 @@ function loopDisplay() {
 }
 
 function fetchHomeInfo() {
-	const url = proxy_url + "trending-and-airing";
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -78,7 +75,7 @@ function fetchHomeInfo() {
 			loopDisplay();
 		}
 	};
-	xhr.open("GET", url, true);
+	xhr.open("GET", "trending-and-airing", true);
 	xhr.send();
 	setInterval(loopDisplay, 4000);
 }
@@ -103,7 +100,6 @@ function switchTab(index) {
 }
 
 function search() {
-	const url = proxy_url + "search";
 	var searchbox = document.forms["searchbox"]
 	var keyword = searchbox["keyword"].value.trim()
 	var category = searchbox["category"].value.trim()
@@ -111,7 +107,7 @@ function search() {
 		alert("Please enter valid values.")
 	}
 	else {
-		var proxy = url + '?' + 'keyword=' + keyword + '&' + 'category' + '=' + category;
+		var proxy = "search" + '?' + 'keyword=' + keyword + '&' + 'category' + '=' + category;
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -222,7 +218,7 @@ function resizeFooter() {
 }
 
 function popup(category, id, title, overview, year, genre, rank, vote) {
-	const url = proxy_url + "fetch-all/" + category + '/' + id;
+	const proxy = "fetch-all/" + category + '/' + id;
 	var xhr = new XMLHttpRequest();
 	xhr.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
@@ -326,7 +322,7 @@ function popup(category, id, title, overview, year, genre, rank, vote) {
 	document.getElementById("popups_link").href = "https://www.themoviedb.org/" + category + '/' + id;
 	document.getElementById("popups").style.display = "block";
 
-	xhr.open("GET", url, true);
+	xhr.open("GET", proxy, true);
 	xhr.send();
 }
 
