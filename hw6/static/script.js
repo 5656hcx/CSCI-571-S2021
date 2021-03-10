@@ -307,12 +307,16 @@ function popup(category, id, title, overview, year, genre, rank, vote) {
 		}
 	}
 
-	// copy cached info
 	div_no_casts.style.display = "none";
 	div_show_casts.style.display = "none";
 	div_no_reviews.style.display = "none";
 	div_show_reviews.style.display = "none";
 	document.getElementById("popups_poster").src = "/static/movie-placeholder.jpg";
+
+	xhr.open("GET", proxy, true);
+	xhr.send();
+
+	// copy cached info
 	document.getElementById("popups_title").innerHTML = title;
 	document.getElementById("popups_overview").innerHTML = overview;
 	document.getElementById("popups_year").innerHTML = year;
@@ -321,11 +325,14 @@ function popup(category, id, title, overview, year, genre, rank, vote) {
 	document.getElementById("popups_vote").innerHTML = vote;
 	document.getElementById("popups_link").href = "https://www.themoviedb.org/" + category + '/' + id;
 	document.getElementById("popups").style.display = "block";
-
-	xhr.open("GET", proxy, true);
-	xhr.send();
 }
 
 function convertDate(date_str) {
-	return date_str.substr(5, 2) + '/' + date_str.substr(8, 2) + '/' + date_str.substr(0, 4);
+	return date_str.substr(5, 2) + 
+	'/' + date_str.substr(8, 2) +
+	'/' + date_str.substr(0, 4);
+}
+
+function close_popup() {
+	document.getElementById("popups").style.display = "none";
 }

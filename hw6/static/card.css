@@ -15,6 +15,8 @@
 }
 
 #popups_poster {
+	float: left;
+	margin-left: 60px;
 	width: 780px;
 	height: 439px;
 }
@@ -78,6 +80,18 @@
 
 #popups_rank {
 	margin: 0px;
+}
+
+#popups_exit {
+	color: #8c8c8c;
+	float: left;
+	margin-top: 5px;
+	margin-left: 25px;
+}
+
+#popups_exit:hover {
+	cursor: pointer;
+	color: black;
 }
 
 #card_h2 {

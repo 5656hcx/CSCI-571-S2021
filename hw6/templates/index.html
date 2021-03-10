@@ -12,8 +12,9 @@
 <body id='test' onload="__init_site__()" onresize="resizeFooter()">
 
 	<!-- popup window -->
-	<div id="popups" align="center">
+	<div id="popups" align="center" style="display: block;">
 		<img id="popups_poster" src="{{ url_for('static', filename='movie-placeholder.jpg') }}">
+		<a id="popups_exit" onclick="close_popup()">&#10006;</a>
 		<div class="popups_text">
 			<h2 id="popups_title">Unknown</h2>
 			<a id="popups_link" target="_blank">&#9432;</a>
