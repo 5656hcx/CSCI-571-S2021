@@ -11,46 +11,53 @@
 </head>
 <body onload="__init_site__()" onresize="resizeFooter()">
 
+	<div id="overlay""></div>
+
 	<!-- popup window -->
-	<div id="popups" align="center" style="display: block;">
-		<img id="popups_poster" src="{{ url_for('static', filename='movie-placeholder.jpg') }}">
-		<a id="popups_exit" onclick="close_popup()">&#10006;</a>
-		<div class="popups_text">
-			<h2 id="popups_title">Unknown</h2>
-			<a id="popups_link" target="_blank">&#9432;</a>
-		</div>
-		<div class="popups_text">
-			<span id="popups_year">Unknown</span> | <span id="popups_genre">Unknown</span><br><br>
-		</div>
-		<div class="popups_text">
-			<span id="popups_rank">&#9733;&nbsp;0/5</span> <span id="popups_vote">0 vote</span>
-		</div>
-		<p class="popups_text" id="popups_overview">No overview or description.</p>
-		<p class="popups_text" style="font-style: italic;">Spoken languages: <span id="popups_language">Unknown</span></p>
-
-		<!-- cast info -->
-		<h2 id="card_h2" class="popups_text">Cast</h2>
-		<p id="no_casts" class="popups_text">No cast info.</p>
-		<div id="show_casts" class="popups_text" >
-			<div id='template_cast_item' class="popups_cast" style="display: none;">
-				<img class="cast_image" src="{{ url_for('static', filename='person-placeholder.png') }}">
-				<p class="cast_name">Unknown</p>
-				<span>AS</span><br>
-				<p class="cast_role">Unknown</p>
-			</div>
-		</div>
-
-		<!-- review info -->
-		<h2 id="card_h2" class="popups_text">Reviews</h2>
-		<p id="no_reviews" class="popups_text">No review found.</p>
-		<div id="show_reviews" class="popups_text">
-			<div id='template_review_item' class="popups_review" style="display: none;">
-				<div style="margin-bottom: 12px;">
-					<span id="popups_user" class="review_user">Anonymous</span> on <span id="popups_time" class="review_date">??/??/????</span><br>
+	<div id="popups_outter_wrapper" style="display: none;">
+		<div id="popups_inner_wrapper">
+			<div id="popups_margin_top"></div>
+			<div id="popups" align="center" style="display: block;">
+				<img id="popups_poster" src="{{ url_for('static', filename='movie-placeholder.jpg') }}">
+				<a id="popups_exit" onclick="close_popup()">&#10006;</a>
+				<div class="popups_text">
+					<h2 id="popups_title">Unknown</h2>
+					<a id="popups_link" target="_blank">&#9432;</a>
 				</div>
-				<p id="popups_rank" class="review_rank">&#9733;&nbsp;0/5</p>
-				<p id="popups_review" class="review_content">No review content.</p>
-				<div id="review_boundary"></div>
+				<div class="popups_text">
+					<span id="popups_year">Unknown</span> | <span id="popups_genre">Unknown</span><br><br>
+				</div>
+				<div class="popups_text">
+					<span id="popups_rank">&#9733;&nbsp;0/5</span> <span id="popups_vote">0 vote</span>
+				</div>
+				<p class="popups_text" id="popups_overview">No overview or description.</p>
+				<p class="popups_text" style="font-style: italic;">Spoken languages: <span id="popups_language">Unknown</span></p>
+
+				<!-- cast info -->
+				<h2 id="card_h2" class="popups_text">Cast</h2>
+				<p id="no_casts" class="popups_text">No cast info.</p>
+				<div id="show_casts" class="popups_text" >
+					<div id='template_cast_item' class="popups_cast" style="display: none;">
+						<img class="cast_image" src="{{ url_for('static', filename='person-placeholder.png') }}">
+						<p class="cast_name">Unknown</p>
+						<span>AS</span><br>
+						<p class="cast_role">Unknown</p>
+					</div>
+				</div>
+
+				<!-- review info -->
+				<h2 id="card_h2" class="popups_text">Reviews</h2>
+				<p id="no_reviews" class="popups_text">No review found.</p>
+				<div id="show_reviews" class="popups_text">
+					<div id='template_review_item' class="popups_review" style="display: none;">
+						<div style="margin-bottom: 12px;">
+							<span id="popups_user" class="review_user">Anonymous</span> on <span id="popups_time" class="review_date">??/??/????</span><br>
+						</div>
+						<p id="popups_rank" class="review_rank">&#9733;&nbsp;0/5</p>
+						<p id="popups_review" class="review_content">No review content.</p>
+						<div id="review_boundary"></div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

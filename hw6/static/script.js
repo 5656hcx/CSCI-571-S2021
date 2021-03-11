@@ -140,7 +140,7 @@ function search() {
 								val_genre = val_genre + objs[i].genre_strs[j] + ', ';
 							}
 						}
-						val_genre = val_genre == '' ? genres[0].innerHTML : val_genre.substr(0, val_genre.length-2);
+						val_genre = val_genre == '' ? '' : val_genre.substr(0, val_genre.length-2);
 						genres[i+1].innerHTML = val_genre;
 
 						let val_src = objs[i].poster_path ? "https://image.tmdb.org/t/p/w185" + objs[i].poster_path : posters[0].src;
@@ -166,7 +166,7 @@ function search() {
 						years[i+1].innerHTML = val_year;
 						ranks[i+1].innerHTML = val_rank;
 						votes[i+1].innerHTML = val_vote;
-						overviews[i+1].innerHTML = val_overview;
+						overviews[i+1].innerHTML = (objs[i].overview == null || objs[i].overview == '') ? '' : val_overview;
 
 						showmores[i+1].onclick = function() {
 							popup(
@@ -317,6 +317,7 @@ function popup(category, id, title, overview, year, genre, rank, vote) {
 	xhr.send();
 
 	// copy cached info
+	document.getElementById("popups_language").innerHTML = "";
 	document.getElementById("popups_title").innerHTML = title;
 	document.getElementById("popups_overview").innerHTML = overview;
 	document.getElementById("popups_year").innerHTML = year;
@@ -324,7 +325,8 @@ function popup(category, id, title, overview, year, genre, rank, vote) {
 	document.getElementById("popups_rank").innerHTML = rank;
 	document.getElementById("popups_vote").innerHTML = vote;
 	document.getElementById("popups_link").href = "https://www.themoviedb.org/" + category + '/' + id;
-	document.getElementById("popups").style.display = "block";
+	document.getElementById("overlay").style.display = "block";
+	document.getElementById("popups_outter_wrapper").style.display = "block";
 }
 
 function convertDate(date_str) {
@@ -334,5 +336,6 @@ function convertDate(date_str) {
 }
 
 function close_popup() {
-	document.getElementById("popups").style.display = "none";
+	document.getElementById("overlay").style.display = "none";
+	document.getElementById("popups_outter_wrapper").style.display = "none";
 }

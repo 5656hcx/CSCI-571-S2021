@@ -168,7 +168,13 @@ def convert_genre(category, ids):
 	if category not in genre_dict:
 		return ['Unknown']
 	for i in range(0, len(ids)):
-		results.append(genre_dict[category][ids[i]])
+		if ids[i] in genre_dict[category]:
+			results.append(genre_dict[category][ids[i]])
+		elif ids[i] in genre_dict['movie']:
+			results.append(genre_dict['movie'][ids[i]])
+		elif ids[i] in genre_dict['tv']:
+			results.append(genre_dict['tv'][ids[i]])
+		else: break;
 	return results
 
 
