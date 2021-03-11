@@ -85,13 +85,15 @@
 			<div id="home_content">
 				<div align="center">
 					<h2>Trending Movies</h2>
-					<div class="banner" id="trending_img" style="background-image: url({{ url_for('static', filename='movie-placeholder.jpg') }})">
+					<div class="banner">
+						<img id="trending_img" src="{{ url_for('static', filename='movie-placeholder.jpg') }}">
 						<div class="inner"><p id="trending_text"></p></div>
 					</div>
 				</div>
 				<div align="center">
 					<h2>TV Shows On-Air Today</h2>
-					<div class="banner" id="tvshows_img" style="background-image: url({{ url_for('static', filename='movie-placeholder.jpg') }})">
+					<div class="banner">
+						<img id="tvshows_img" src="{{ url_for('static', filename='movie-placeholder.jpg') }}">
 						<div class="inner"><p id="tvshows_text"></p></div>					
 					</div>
 				</div>

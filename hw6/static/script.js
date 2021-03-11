@@ -52,18 +52,33 @@ function fetchElements()
 	template_review_item = document.getElementById("template_review_item")
 }
 
+var timer;
+var opacity;
+
 function loopDisplay() {
 	if (main_page_objs != null) {
+		if (main_page_objs.trending[main_page_index].backdrop_path == null) elem_trending_img.src = "/static/movie-placeholder.jpg"
+		else elem_trending_img.src = "https://image.tmdb.org/t/p/w780" + main_page_objs.trending[main_page_index].backdrop_path;
 
-		if (main_page_objs.trending[main_page_index].backdrop_path == null) elem_trending_img.style.backgroundImage = "/static/movie-placeholder.jpg"
-		else elem_trending_img.style.backgroundImage = "url(" + "https://image.tmdb.org/t/p/w780" + main_page_objs.trending[main_page_index].backdrop_path + ")";
-
-		if (main_page_objs.airing[main_page_index].backdrop_path == null) elem_tvshows_img.style.backgroundImage = "/static/movie-placeholder.jpg"
-		else elem_tvshows_img.style.backgroundImage = "url(" + "https://image.tmdb.org/t/p/w780" + main_page_objs.airing[main_page_index].backdrop_path + ")";
+		if (main_page_objs.airing[main_page_index].backdrop_path == null) elem_tvshows_img.src = "/static/movie-placeholder.jpg"
+		else elem_tvshows_img.src = "https://image.tmdb.org/t/p/w780" + main_page_objs.airing[main_page_index].backdrop_path;
 
 		elem_trending_text.innerHTML = main_page_objs.trending[main_page_index].title + " (" + main_page_objs.trending[main_page_index].release_date.substr(0, 4) + ")";
 		elem_tvshows_text.innerHTML = main_page_objs.airing[main_page_index].name + " (" + main_page_objs.airing[main_page_index].first_air_date.substr(0, 4) + ")";
 		main_page_index = (main_page_index + 1) % 5;
+
+		opacity = 0.4;
+		elem_trending_img.style.opacity = opacity;
+		elem_tvshows_img.style.opacity = opacity;
+		timer = setInterval(function() {
+			elem_trending_img.style.opacity = Number(opacity.toString().substr(0, 3));
+			elem_tvshows_img.style.opacity = Number(opacity.toString().substr(0, 3));
+			opacity = opacity + 0.02;
+			if (opacity >= 1) {
+				clearInterval(timer);
+				setTimeout(loopDisplay, 4000);
+			}
+		}, 10);
 	}
 }
 
@@ -77,7 +92,6 @@ function fetchHomeInfo() {
 	};
 	xhr.open("GET", "trending-and-airing", true);
 	xhr.send();
-	setInterval(loopDisplay, 4000);
 }
 
 function switchTab(index) {
