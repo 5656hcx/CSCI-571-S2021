@@ -43,7 +43,7 @@ def fetch_trending_movies():
 	return json.dumps(results)
 
 
-@app.route("/airing/")
+@app.route("/airing")
 def fetch_airing_today():
 	response = request.urlopen(airing_endpoint.replace('<<api_key>>', api_key))
 	text = json.loads(response.read())
@@ -62,21 +62,24 @@ def fetch_airing_today():
 def search_tmdb():
 	keyword = flask_request.args.get('keyword')
 	category = flask_request.args.get('category')
-	url = search_endpoint
-	url = url.replace('<<api_key>>', api_key)
-	url = url.replace('<<category>>', category)
-	url = url.replace('<<search_query>>', keyword.replace(' ', '%20'))
-
-	update_genre()
-	if category == 'movie':
-		return search_movie(url)
-	elif category == 'tv':
-		return search_tv(url)
-	elif category == 'multi':
-		return search_multi(url)
-	else:
+	if keyword == None or category == None or keyword == '' or category == '':
 		abort(404)
-	return json.dumps([])
+	else:
+		url = search_endpoint
+		url = url.replace('<<api_key>>', api_key)
+		url = url.replace('<<category>>', category)
+		url = url.replace('<<search_query>>', keyword.replace(' ', '%20'))
+
+		update_genre()
+		if category == 'movie':
+			return search_movie(url)
+		elif category == 'tv':
+			return search_tv(url)
+		elif category == 'multi':
+			return search_multi(url)
+		else:
+			abort(404)
+		return json.dumps([])
 
 
 def search_movie(url):
